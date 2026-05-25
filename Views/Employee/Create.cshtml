@@ -1,0 +1,70 @@
+@model EmployeeDirectory.Models.Employee
+
+@{
+    ViewData["Title"] = "Create Employee";
+    if (User.IsInRole("Admin"))
+    {
+        Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+    }
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Create Employee</h2>
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="btn btn-outline-secondary" asp-controller="Admin" asp-action="Dashboard">Dashboard Home</a>
+    }
+</div>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data" class="row g-3">
+    @Html.AntiForgeryToken()
+    <div class="col-md-6">
+        <label asp-for="FirstName" class="form-label"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="LastName" class="form-label"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Phone" class="form-label"></label>
+        <input asp-for="Phone" class="form-control" />
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="JobTitle" class="form-label"></label>
+        <input asp-for="JobTitle" class="form-control" />
+    </div>
+    <div class="col-md-6">
+        <label asp-for="DepartmentId" class="form-label"></label>
+        <input asp-for="DepartmentId" class="form-control" />
+    </div>
+    <div class="col-md-6">
+        <label asp-for="HireDate" class="form-label"></label>
+        <input asp-for="HireDate" type="date" class="form-control" />
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Upload Photo</label>
+        <input name="photoFile" type="file" accept="image/*" class="form-control" />
+        <div class="form-text">Optional. JPG/PNG, max 2MB.</div>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-controller="Admin" asp-action="Dashboard" class="btn btn-outline-dark">Back to Dashboard</a>
+        }
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,161 @@
+@model EmployeeDirectory.ViewModels.AdminDashboardViewModel
+@using System.Text.Json
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+    var deptLabels = JsonSerializer.Serialize(Model.EmployeesPerDepartment.Select(d => d.DepartmentName));
+    var deptValues = JsonSerializer.Serialize(Model.EmployeesPerDepartment.Select(d => d.EmployeeCount));
+    var roleLabels = JsonSerializer.Serialize(Model.RoleDistribution.Keys);
+    var roleValues = JsonSerializer.Serialize(Model.RoleDistribution.Values);
+    var hiresLabels = JsonSerializer.Serialize(Model.NewHireSeries.Select(h => h.Label));
+    var hiresValues = JsonSerializer.Serialize(Model.NewHireSeries.Select(h => h.Count));
+}
+
+@section Breadcrumb {
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+        </ol>
+    </nav>
+}
+
+<div class="row g-3 mb-4">
+    <div class="col-sm-6 col-xl-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="stat-tile">
+                    <div class="stat-icon" title="Employees" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                          <path d="M16 11c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM8 11c1.657 0 3-1.343 3-3S9.657 5 8 5 5 6.343 5 8s1.343 3 3 3z" fill="currentColor"/>
+                          <path d="M8 13c-2.667 0-8 1.333-8 4v2h22v-2c0-2.667-5.333-4-8-4H8z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-muted">Total Employees</div>
+                        <div class="display-6 fw-semibold">@Model.TotalEmployees</div>
+                        <div class="small @(Model.EmployeeTrendDirection == "up" ? "text-success" : "text-danger")">
+                            @(Model.EmployeeTrendDirection == "up" ? "▲" : "▼") @Math.Abs(Model.EmployeeTrendDelta) vs last month
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="stat-tile">
+                    <div class="stat-icon" title="Departments" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M3 13h18v8H3v-8zM5 3h3v6H5V3zm6 0h3v6h-3V3zm6 0h3v6h-3V3z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-muted">Total Departments</div>
+                        <div class="display-6 fw-semibold">@Model.TotalDepartments</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="stat-tile">
+                    <div class="stat-icon" title="New hires" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M15 14c2.761 0 5 2.239 5 5v1H4v-1c0-2.761 2.239-5 5-5h6zM12 12a4 4 0 100-8 4 4 0 000 8z" fill="currentColor"/>
+                          <path d="M19 7v2h2V7h-2zM21 9h-2v2h-2v2h2v2h2v-2h2v-2h-2V9z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-muted">New Hires This Month</div>
+                        <div class="display-6 fw-semibold">@Model.NewHiresThisMonth</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="stat-tile">
+                    <div class="stat-icon" title="Inactive" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M16 11c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM8 11c1.657 0 3-1.343 3-3S9.657 5 8 5 5 6.343 5 8s1.343 3 3 3z" fill="currentColor"/>
+                          <path d="M21 19v-1c0-1.657-3.582-3-8-3s-8 1.343-8 3v1h16zM17 14l4 4M21 14l-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-muted">Inactive / Offboarded</div>
+                        <div class="display-6 fw-semibold">@Model.InactiveEmployees</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-4 d-flex justify-content-between align-items-center">
+    <div>
+        <a class="btn btn-primary me-2" asp-controller="Employee" asp-action="Create">Add Employee</a>
+        <a class="btn btn-outline-secondary me-2" asp-controller="Admin" asp-action="Departments">Departments</a>
+        <a class="btn btn-outline-secondary me-2" asp-controller="Admin" asp-action="Reports">Reports</a>
+        <a class="btn btn-outline-secondary" asp-controller="Admin" asp-action="Settings">Settings</a>
+    </div>
+    <div class="text-muted">Simple view • Minimal charts • Mobile-first</div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header">Top Departments</div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                @foreach(var d in Model.EmployeesPerDepartment.OrderByDescending(d => d.EmployeeCount).Take(5)){
+                    <li class="d-flex justify-content-between py-2 border-bottom">
+                        <div>@d.DepartmentName</div>
+                        <div class="text-muted">@d.EmployeeCount</div>
+                    </li>
+                }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header">Roles</div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                @foreach(var kv in Model.RoleDistribution){
+                    <li class="d-flex justify-content-between py-2 border-bottom">
+                        <div>@kv.Key</div>
+                        <div class="text-muted">@kv.Value</div>
+                    </li>
+                }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">Recent Activity</div>
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+        @foreach (var item in Model.RecentActivity.Take(8))
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="fw-semibold">@item.ActionType</div>
+                    <div class="small text-muted">@item.Description</div>
+                </div>
+                <div class="text-end small text-muted">@item.Timestamp.ToLocalTime().ToString("yyyy-MM-dd HH:mm")<br/>@((item.ActingUserEmail ?? "System"))</div>
+            </li>
+        }
+        </ul>
+    </div>
+</div>
+
+@* Simplified dashboard: charts removed for clarity. *@

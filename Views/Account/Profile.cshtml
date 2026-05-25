@@ -1,0 +1,49 @@
+@model EmployeeDirectory.ViewModels.ProfileViewModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="card mx-auto" style="max-width:700px;">
+    <div class="card-body">
+        <h4 class="card-title">Profile</h4>
+        <form method="post" asp-action="Profile" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <img src="@(Model.PhotoUrl ?? "/images/placeholder.png")" class="img-fluid rounded mb-3" alt="Profile photo">
+                    <div class="mb-2">
+                        <label asp-for="PhotoFile" class="form-label">Upload photo</label>
+                        <input asp-for="PhotoFile" class="form-control" type="file" />
+                        <span asp-validation-for="PhotoFile" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input readonly class="form-control" value="@Model.Email" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">User name</label>
+                        <input readonly class="form-control" value="@Model.UserName" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="FirstName" class="form-label"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="LastName" class="form-label"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="PhoneNumber" class="form-label"></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <button class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

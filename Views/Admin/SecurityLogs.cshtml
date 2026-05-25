@@ -1,0 +1,57 @@
+@model IEnumerable<EmployeeDirectory.Models.OtpVerification>
+@{
+    ViewData["Title"] = "OTP / Security Logs";
+    Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+}
+
+@section Breadcrumb {
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Dashboard">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">OTP / Security Logs</li>
+        </ol>
+    </nav>
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="h5 mb-0">OTP / Security Logs</h3>
+    <div>
+        <form method="post" asp-action="CleanOtpLogs" class="d-inline">
+            @Html.AntiForgeryToken()
+            <button class="btn btn-outline-danger">Clean Old Used OTPs</button>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th>UserId</th>
+                        <th>OtpCode</th>
+                        <th>GeneratedAt</th>
+                        <th>ExpiresAt</th>
+                        <th>IsUsed</th>
+                        <th>AttemptCount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach(var l in Model){
+                    <tr>
+                        <td>@l.UserId</td>
+                        <td>@l.OtpCode</td>
+                        <td>@l.GeneratedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                        <td>@l.ExpiresAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                        <td>@(l.IsUsed ? "Yes" : "No")</td>
+                        <td>@l.AttemptCount</td>
+                        <td>@l.Status</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

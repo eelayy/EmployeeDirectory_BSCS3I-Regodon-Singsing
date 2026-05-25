@@ -1,0 +1,42 @@
+@model EmployeeDirectory.ViewModels.OtpVerifyViewModel
+
+@{
+    ViewData["Title"] = "Verify OTP";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h1 class="h4 mb-3">Verify One-Time Password</h1>
+                <p class="text-muted small">Enter the 6-digit code that was generated for your account.</p>
+
+                @if (TempData["DevelopmentOtpCode"] is string generatedCode && !string.IsNullOrWhiteSpace(generatedCode))
+                {
+                    <div class="alert alert-warning" role="alert">
+                        <strong>Development OTP:</strong> @generatedCode
+                    </div>
+                }
+
+                <form asp-controller="Account" asp-action="VerifyOtp" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="PendingUserId" />
+                    <input type="hidden" asp-for="ReturnUrl" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Code" class="form-label">OTP Code</label>
+                        <input asp-for="Code" class="form-control" maxlength="6" autocomplete="one-time-code" />
+                        <span asp-validation-for="Code" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Verify & Continue</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

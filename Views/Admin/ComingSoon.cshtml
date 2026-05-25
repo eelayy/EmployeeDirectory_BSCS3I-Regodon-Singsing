@@ -1,0 +1,20 @@
+@{
+    ViewData["Title"] = ViewData["SectionTitle"]?.ToString() ?? "Admin Section";
+    Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+}
+
+@section Breadcrumb {
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Dashboard">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+        </ol>
+    </nav>
+}
+
+<div class="card">
+    <div class="card-body py-5 text-center">
+        <h3 class="h4 mb-2">@ViewData["Title"]</h3>
+        <p class="text-muted mb-0">This section is scaffolded and will be expanded in the next implementation batch.</p>
+    </div>
+</div>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EmployeeDirectory Admin</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/design.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/admin-dashboard.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/chart.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/EmployeeDirectory.styles.css" asp-append-version="true" />
+    <style>
+        /* Force black text across admin area for consistent legibility */
+        .admin-app-shell, .admin-app-shell * {
+            color: #000000 !important;
+        }
+        /* Ensure links, nav items and dropdowns use black text */
+        .admin-sidebar, .admin-sidebar a, .admin-sidebar .nav-link,
+        .admin-main .navbar, .admin-main .navbar *,
+        .admin-main a, .admin-main .nav-link, .dropdown-item {
+            color: #000000 !important;
+        }
+        /* Make badges, list-group items and cards use readable text color */
+        .list-group-item, .card, .badge, .btn {
+            color: #000000 !important;
+        }
+    </style>
+</head>
+<body class="admin-app-shell app-theme">
+    <div class="d-flex admin-shell-wrapper">
+        <aside class="admin-sidebar bg-dark text-light p-3">
+            <div class="fs-5 fw-semibold mb-4">EmployeeDirectory</div>
+            <nav class="nav flex-column">
+                <a class="nav-link text-light" asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
+                <a class="nav-link text-light" asp-controller="Employee" asp-action="Index">Employee Directory</a>
+                <a class="nav-link text-light" asp-controller="Employee" asp-action="Create">Add Employee</a>
+                <a class="nav-link text-light" asp-controller="Admin" asp-action="Departments">Departments</a>
+                <a class="nav-link text-light" asp-controller="Admin" asp-action="UserManagement">User Management</a>
+                <a class="nav-link text-light" asp-controller="Admin" asp-action="SecurityLogs">OTP / Security Logs</a>
+                <a class="nav-link text-light" asp-controller="Admin" asp-action="Reports">Reports & Export</a>
+                <a class="nav-link text-light" asp-controller="Admin" asp-action="Settings">Settings</a>
+            </nav>
+        </aside>
+
+        <div class="admin-main flex-grow-1">
+            <header class="navbar navbar-expand-lg bg-white border-bottom px-3">
+                <a class="navbar-brand" asp-controller="Admin" asp-action="Dashboard">EmployeeDirectory Admin</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminTopNav" aria-controls="adminTopNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="adminTopNav">
+                    <form class="d-flex mx-lg-4 flex-grow-1" role="search" id="adminGlobalSearchForm">
+                        <input class="form-control" type="search" placeholder="Search employees..." aria-label="Search" id="adminGlobalSearchInput" />
+                    </form>
+                    <div class="d-flex align-items-center gap-3">
+                        <a class="btn btn-outline-primary" asp-controller="Home" asp-action="Index" title="Go to site Home">Home</a>
+                        <button class="btn btn-outline-secondary position-relative" type="button" title="Notifications">
+                            <span class="bi bi-bell"></span>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="adminNotificationCount">@ViewBag.NotificationCount</span>
+                        </button>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Admin
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" asp-controller="Account" asp-action="Profile">Profile</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="ChangePassword">Change Password</a></li>
+                                <li>
+                                    <form asp-controller="Account" asp-action="Logout" method="post" class="px-3 py-1">
+                                        @Html.AntiForgeryToken()
+                                        <button class="btn btn-link p-0 text-start">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="p-3 p-lg-4">
+                @RenderSection("Breadcrumb", required: false)
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastContainer"></div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="~/js/chart-simple.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

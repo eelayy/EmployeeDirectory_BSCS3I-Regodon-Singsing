@@ -1,0 +1,329 @@
+:root {
+  --admin-bg: #0f172a;
+  --admin-surface: #0b1220;
+  --admin-accent: #8b5cf6;
+  --admin-text: #e6eef8;
+}
+
+.admin-app-shell {
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.95),
+    rgba(2, 6, 23, 0.98)
+  );
+  color: var(--admin-text);
+}
+
+.admin-sidebar {
+  background: linear-gradient(180deg, #071029, #071229);
+  min-height: 100vh;
+  border-right: 1px solid rgba(255, 255, 255, 0.03);
+}
+.admin-sidebar .fs-5 {
+  color: var(--admin-accent);
+}
+.admin-sidebar .nav-link {
+  color: rgba(230, 238, 248, 0.85) !important;
+  padding: 0.5rem 0.75rem;
+}
+.admin-sidebar .nav-link.active,
+.admin-sidebar .nav-link:hover {
+  background: rgba(139, 92, 246, 0.12);
+  color: var(--admin-text) !important;
+  border-radius: 0.375rem;
+}
+
+.admin-main header.navbar {
+  background: transparent;
+  border-bottom: none;
+}
+.admin-main header .navbar-brand {
+  color: var(--admin-text);
+  font-weight: 700;
+}
+
+.admin-main main {
+  background: transparent;
+}
+
+.card {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.01)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+.card .card-header {
+  background: transparent;
+  border-bottom: none;
+  color: var(--admin-text);
+  font-weight: 600;
+}
+.card .card-body {
+  color: rgba(230, 238, 248, 0.95);
+}
+
+.display-6 {
+  font-size: 1.75rem;
+}
+
+/* Stat tile accent */
+.stat-tile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.stat-tile .stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, var(--admin-accent), #5eead4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #031022;
+}
+
+/* Table visual tweaks */
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background: transparent;
+}
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+@media (max-width: 991.98px) {
+  .admin-sidebar {
+    position: static;
+    width: 100%;
+  }
+}
+
+/* Force white text across admin dashboard */
+.admin-app-shell,
+.admin-app-shell * {
+  color: #ffffff !important;
+}
+
+/* Keep muted elements slightly dimmer */
+.admin-app-shell .text-muted,
+.admin-app-shell small {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* Links and nav items */
+.admin-app-shell a,
+.admin-app-shell .nav-link {
+  color: #ffffff !important;
+}
+
+/* Table headers and cells */
+.admin-app-shell table th,
+.admin-app-shell table td {
+  color: #ffffff !important;
+}
+
+/* Ensure dropdown/menu items inherit white color */
+.admin-app-shell .dropdown-menu,
+.admin-app-shell .dropdown-item {
+  color: #ffffff !important;
+}
+
+/* Ensure recent activity list items are dark with white text */
+.admin-app-shell .list-group-item {
+  background: transparent !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.03) !important;
+}
+.admin-app-shell .list-group-item .fw-semibold {
+  color: #ffffff !important;
+}
+.admin-app-shell .list-group-item .small,
+.admin-app-shell .list-group-item .text-muted {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+.admin-app-shell .card-header {
+  color: #ffffff !important;
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03) !important;
+}
+
+/* Override any Bootstrap white backgrounds inside admin area (e.g., list-group, card-body) */
+.admin-app-shell .card,
+.admin-app-shell .card-body,
+.admin-app-shell .card .list-group,
+.admin-app-shell .list-group-item,
+.admin-app-shell .list-group-flush .list-group-item {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: #ffffff !important;
+}
+
+/* Override utility classes that might force white background */
+.admin-app-shell .bg-white,
+.admin-app-shell .card.bg-white,
+.admin-app-shell .list-group-item.bg-white {
+  background-color: transparent !important;
+  color: #ffffff !important;
+}
+
+/* If any sub-elements still have dark-on-light issues, force their text white */
+.admin-app-shell .card .small,
+.admin-app-shell .card .text-muted,
+.admin-app-shell .card .fw-semibold {
+  color: #ffffff !important;
+}
+
+/* ----- Light theme overrides (admin) ----- */
+:root {
+  --admin-bg: #ffffff;
+  --admin-surface: #f8f9fa;
+  --admin-accent: #0d6efd;
+  --admin-text: #000000;
+}
+
+/* Set overall background and text */
+.admin-app-shell {
+  background: var(--admin-bg) !important;
+  color: var(--admin-text) !important;
+}
+
+/* Sidebar: light background, dark text */
+.admin-sidebar {
+  background: var(--admin-surface) !important;
+  color: var(--admin-text) !important;
+  border-right: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+.admin-sidebar .fs-5 {
+  color: var(--admin-accent) !important;
+}
+.admin-sidebar .nav-link {
+  color: rgba(0, 0, 0, 0.85) !important;
+}
+.admin-sidebar .nav-link.active,
+.admin-sidebar .nav-link:hover {
+  background: rgba(13, 110, 253, 0.08) !important;
+  color: var(--admin-text) !important;
+  border-radius: 0.375rem;
+}
+
+/* Header */
+.admin-main header.navbar {
+  background: #ffffff !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+.admin-main header .navbar-brand {
+  color: var(--admin-text) !important;
+}
+
+/* Cards and surfaces */
+.admin-app-shell .card {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+.admin-app-shell .card .card-header {
+  background: transparent !important;
+  color: var(--admin-text) !important;
+}
+.admin-app-shell .card .card-body {
+  color: rgba(0, 0, 0, 0.9) !important;
+}
+
+/* Stat icon contrast */
+.stat-tile .stat-icon {
+  background: linear-gradient(90deg, var(--admin-accent), #5eead4) !important;
+  color: #fff !important;
+}
+
+/* Links, nav, dropdowns */
+.admin-app-shell a,
+.admin-app-shell .nav-link,
+.admin-app-shell .dropdown-item {
+  color: rgba(0, 0, 0, 0.9) !important;
+}
+.admin-app-shell .dropdown-menu {
+  background: #fff !important;
+}
+
+/* Tables and lists */
+.admin-app-shell table th,
+.admin-app-shell table td,
+.admin-app-shell .list-group-item {
+  color: rgba(0, 0, 0, 0.9) !important;
+  background: transparent !important;
+}
+.admin-app-shell .text-muted,
+.admin-app-shell small {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Utility overrides */
+.admin-app-shell .bg-dark,
+.admin-app-shell .text-light {
+  background: transparent !important;
+  color: inherit !important;
+}
+
+/* Buttons */
+.admin-app-shell .btn-outline-secondary,
+.admin-app-shell .btn-outline-primary {
+  color: rgba(0, 0, 0, 0.85) !important;
+}
+
+/* Ensure dropdown badges and notifications are readable */
+.admin-app-shell .badge {
+  color: #fff !important;
+  background: var(--admin-accent) !important;
+}
+
+/* End light theme overrides */
+
+/* Force all admin-area text color to black */
+.admin-app-shell,
+.admin-app-shell * {
+  color: #000000 !important;
+}
+
+/* Slightly muted texts */
+.admin-app-shell .text-muted,
+.admin-app-shell small {
+  color: rgba(0, 0, 0, 0.65) !important;
+}
+
+/* Links and nav items */
+.admin-app-shell a,
+.admin-app-shell .nav-link,
+.admin-app-shell .dropdown-item {
+  color: #000000 !important;
+}
+
+/* Ensure table cells and list items use black text */
+.admin-app-shell table th,
+.admin-app-shell table td,
+.admin-app-shell .list-group-item {
+  color: #000000 !important;
+}
+
+/* Buttons and badges text */
+.admin-app-shell .btn,
+.admin-app-shell .badge {
+  color: #000000 !important;
+}
+
+/* Ensure KPI/stat tiles are readable in light theme */
+.admin-app-shell .stat-tile {
+  color: #000000 !important;
+}
+.admin-app-shell .stat-tile .display-6,
+.admin-app-shell .stat-tile .text-muted {
+  color: #000000 !important;
+}
+.admin-app-shell .stat-tile .stat-icon {
+  color: #ffffff !important;
+  background: linear-gradient(90deg, var(--admin-accent), #5eead4) !important;
+}
+.admin-app-shell .stat-tile svg {
+  color: inherit;
+  fill: currentColor !important;
+}

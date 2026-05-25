@@ -1,0 +1,35 @@
+@model EmployeeDirectory.Models.Employee
+
+@{
+    ViewData["Title"] = "Employee Details";
+    if (User.IsInRole("Admin"))
+    {
+        Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+    }
+}
+
+<div class="card mb-3">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="@(Model.PhotoUrl ?? "/images/placeholder.png")" class="img-fluid rounded-start" alt="Profile photo">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h3 class="card-title">@Model.FullName</h3>
+                <p class="card-text"><strong>Title:</strong> @Model.JobTitle</p>
+                <p class="card-text"><strong>Department:</strong> @Model.Department?.Name</p>
+                <p class="card-text"><strong>Email:</strong> <a href="mailto:@Model.Email">@Model.Email</a></p>
+                <p class="card-text"><strong>Phone:</strong> @Model.Phone</p>
+                <p class="card-text"><strong>Hired:</strong> @Model.HireDate.ToShortDateString()</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex gap-2">
+    <a class="btn btn-secondary" asp-action="Index">Back</a>
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="btn btn-outline-secondary" asp-controller="Admin" asp-action="Dashboard">Dashboard Home</a>
+    }
+</div>

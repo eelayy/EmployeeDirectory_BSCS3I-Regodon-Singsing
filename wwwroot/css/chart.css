@@ -1,0 +1,30 @@
+/* Simple chart container styles for consistent, minimal charts */
+.chart-container {
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chart-card canvas {
+  width: 100% !important;
+  height: 220px !important;
+}
+.chart-legend-inline {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.chart-legend-inline .legend-item {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  color: #495057;
+  font-size: 0.9rem;
+}
+.chart-legend-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  display: inline-block;
+}

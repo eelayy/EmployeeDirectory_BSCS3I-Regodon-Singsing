@@ -1,0 +1,48 @@
+﻿@model IEnumerable<EmployeeDirectory.Models.Employee>
+@{
+    ViewData["Title"] = "Welcome";
+}
+
+<div class="text-center py-4">
+    <h1 class="display-4">Welcome</h1>
+    <p class="lead">Welcome to the Employee Directory application.</p>
+    @if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
+    {
+        <div class="mt-3">
+            <a class="btn btn-primary" asp-controller="Admin" asp-action="Dashboard">Go to Admin Dashboard</a>
+        </div>
+    }
+    @if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
+    {
+        <div class="card mt-4 mx-auto" style="max-width:720px;">
+            <div class="card-body">
+                <h5 class="card-title">Admin Quick Actions</h5>
+                <p class="card-text">Manage users, employees and view system reports from the admin area.</p>
+                <div class="d-flex gap-2">
+                    <a class="btn btn-outline-primary" asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
+                    <a class="btn btn-outline-secondary" asp-controller="Admin" asp-action="UserManagement">Users</a>
+                    <a class="btn btn-outline-secondary" asp-controller="Employee" asp-action="Index">Employees</a>
+                    <a class="btn btn-outline-secondary" asp-controller="Admin" asp-action="ComingSoon">Reports</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="container py-4">
+    <div id="employeesList">
+        @await Html.PartialAsync("_EmployeesList", Model)
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@@microsoft/signalr@7.0.5/dist/browser/signalr.min.js"></script>
+<script>
+    const connection = new signalR.HubConnectionBuilder().withUrl('/employeeHub').withAutomaticReconnect().build();
+    connection.start().catch(console.error);
+    connection.on('EmployeeChanged', () => {
+        fetch('@Url.Action("EmployeesPartial","Home")')
+            .then(r => r.text())
+            .then(html => document.getElementById('employeesList').innerHTML = html)
+            .catch(console.error);
+    });
+</script>
